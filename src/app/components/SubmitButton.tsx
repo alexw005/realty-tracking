@@ -8,7 +8,7 @@ export default function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <Button color='primary' type="submit" isDisabled={pending} fullWidth>
+    <Button className='p1' color='primary' type="submit" isDisabled={pending} fullWidth>
       Add
     </Button>
   )
