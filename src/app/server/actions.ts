@@ -1,23 +1,33 @@
-'use server'
+"use server";
 
-import { sign } from "jsonwebtoken";
+import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
-
 export async function addSalesPersons(formData: FormData) {
-    const name = formData.get('name') as string;
-    console.log(name, formData);
+  const name = formData.get("name") as string;
+  console.log(name, formData);
 }
 export async function login(formData: FormData) {
+  const userName = formData.get("username") as string;
+  const password = formData.get("password") as string;
+  console.log(password === process.env.ADMINPASSWORD, password);
+  if (userName === "admin" && password === process.env.ADMINPASSWORD) {
+    console.log(process.env.ADMINPASSWORD);
 
-    const userName = formData.get('username') as string;
-    const password = formData.get('password') as string;
-    if (userName === 'admin' && password === process.env.ADMINPASSWORD) {
-        const token = sign({ userName, role: 'admin' }, process.env.SECRET as string, { expiresIn: '1h' });
-        const cookieStore = cookies();
-        if (typeof (token) === 'string') {
-            cookieStore.set('token', token, { sameSite: "strict" });
-        }
+    const secret = new TextEncoder().encode(process.env.SECRET);
+    const alg = "HS256";
+
+    const token = await new SignJWT({ userName: userName, role: "admin" })
+      .setProtectedHeader({ alg })
+      .setIssuedAt()
+      .setExpirationTime("1h")
+      .sign(secret);
+
+    const cookieStore = cookies();
+    if (typeof token === "string") {
+      cookieStore.set("token", token, { sameSite: "strict" });
     }
-    return undefined
+  }
+  console.error("Failed to set cookies");
+  return undefined;
 }
