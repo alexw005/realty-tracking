@@ -9,8 +9,8 @@ const navLinks = [
         label: "Home",
     },
     {
-        href: "/commision",
-        label: "Commision",
+        href: "/dashboard",
+        label: "Dashboard",
     }
 
 ];
