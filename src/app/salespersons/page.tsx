@@ -1,6 +1,7 @@
 'use client'
-import InputText from "../components/InputText";
+import { Input } from "@nextui-org/react";
 import { addSalesPersons } from "../server/actions";
+import SubmitButton from "../components/SubmitButton";
 
 export default function Page() {
     return (
@@ -10,9 +11,9 @@ export default function Page() {
                 <div>
                     <form action={addSalesPersons}>
 
-                        <InputText label="name" />
-
-                        <InputText label="email" />
+                        <Input type="name" label="Name" name="name" required />
+                        <Input type="email" label="Email" name="email" required />
+                        <SubmitButton />
                     </form>
                 </div>
             </div>

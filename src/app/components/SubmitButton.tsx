@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@nextui-org/react'
 import React from 'react'
 import { useFormStatus } from 'react-dom'
 
@@ -7,8 +8,8 @@ export default function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <button type="submit" disabled={pending}>
+    <Button color='primary' type="submit" isDisabled={pending} fullWidth>
       Add
-    </button>
+    </Button>
   )
 }
