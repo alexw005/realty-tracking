@@ -11,8 +11,8 @@ export async function login(formData: FormData) {
   const userName = formData.get("username") as string;
   const password = formData.get("password") as string;
   if (
-    userName === process.env.ADMINUSERNAME &&
-    password === process.env.ADMINPASSWORD
+    userName === process.env.ADMIN_USERNAME &&
+    password === process.env.ADMIN_PASSWORD
   ) {
     const secret = new TextEncoder().encode(process.env.SECRET);
     const alg = "HS256";
