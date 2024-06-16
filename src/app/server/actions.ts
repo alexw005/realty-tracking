@@ -7,12 +7,16 @@ import { cookies } from "next/headers";
 export async function addSalesPersons(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
-  await prisma.salesPerson.create({
-    data: {
-      name,
-      email,
-    },
-  });
+  try {
+    await prisma.salesPerson.create({
+      data: {
+        name,
+        email,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+  }
 }
 export async function login(formData: FormData) {
   const userName = formData.get("username") as string;
