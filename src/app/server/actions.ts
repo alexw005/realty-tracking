@@ -128,9 +128,10 @@ export async function createCommission(formData: FormData) {
     await prisma.commission.upsert({
       where: {
         // in this case, the combination of salesPersonId and realEstateId
-        id: commission?.id,
-        salesPersonId: parseInt(salesPersonId),
-        realEstateId: parseInt(realEstateId),
+        salesPersonId_realEstateId: {
+          salesPersonId: parseInt(salesPersonId),
+          realEstateId: parseInt(realEstateId),
+        },
       },
       create: {
         amount: amount,
