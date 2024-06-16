@@ -96,47 +96,55 @@ export async function addRealEstate(formData: FormData) {
 }
 
 export async function createCommission(formData: FormData) {
-  const salesPersonId = formData.get("salespersonid") as string;
+  console.log(formData);
+  const realEstateId = formData.get("realEstateId") as string;
+  const price = parseFloat(formData.get("price") as string);
+  const salesPersonId = formData.get("salesPersonId") as string;
   const rate = parseFloat(formData.get("percentage") as string) / 100;
-  const commissionId = await prisma.commission.findFirst({
+  // console.log(price, salesPersonId, realEstateId, rate);
+  const commission = await prisma.commission.findFirst({
     include: {
       salesPerson: true,
       realEstate: true,
     },
     where: {
       salesPersonId: parseInt(salesPersonId),
-      realEstateId: 1,
+      realEstateId: parseInt(realEstateId),
     },
   });
-  if (!commissionId) {
+  if (!commission) {
     console.error("Commission not found");
-    return;
-  } else {
-    try {
-      const amount = commissionId.realEstate.price * rate;
+  }
+  try {
+    console.log(
+      commission?.id,
 
-      console.log(commissionId.id, amount);
-      await prisma.commission.upsert({
-        where: {
-          // in this case, the combination of salesPersonId and realEstateId
-          id: commissionId.id,
-          salesPersonId: parseInt(salesPersonId),
-          realEstateId: 1,
-        },
-        create: {
-          amount: amount,
-          rate: rate,
-          realEstateId: 1,
-          salesPersonId: parseInt(salesPersonId),
-        },
-        update: {
-          amount: amount,
-          rate: rate,
-        },
-      });
-    } catch (e) {
-      console.error(e);
-    }
+      price,
+      salesPersonId,
+      realEstateId,
+      rate
+    );
+    const amount = price * rate; //commission.realEstate.price * rate;
+    await prisma.commission.upsert({
+      where: {
+        // in this case, the combination of salesPersonId and realEstateId
+        id: commission?.id,
+        salesPersonId: parseInt(salesPersonId),
+        realEstateId: parseInt(realEstateId),
+      },
+      create: {
+        amount: amount,
+        rate: rate,
+        realEstateId: parseInt(realEstateId),
+        salesPersonId: parseInt(salesPersonId),
+      },
+      update: {
+        amount: amount,
+        rate: rate,
+      },
+    });
+  } catch (e) {
+    console.error(e);
   }
 }
 export async function login(formData: FormData) {
@@ -158,6 +166,7 @@ export async function login(formData: FormData) {
     const cookieStore = cookies();
     if (typeof token === "string") {
       cookieStore.set("token", token, { sameSite: "strict" });
+      redirect("/dashboard");
     }
   }
   console.error("Failed to set cookies");

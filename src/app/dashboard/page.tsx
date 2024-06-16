@@ -1,20 +1,33 @@
 import prisma from "@/lib/db";
 import DropdownSalesPersons from "../components/DropdownSalesPersons";
-import { createCommission, getAllSalesPersons } from "../server/actions";
+import {
+  createCommission,
+  getAllRealEstates,
+  getAllSalesPersons,
+} from "../server/actions";
 import { Input } from "@nextui-org/react";
+import DropdownRealestate from "../components/DropdownRealestate";
+import { ReactEventHandler } from "react";
+import SubmitButton from "../components/SubmitButton";
 
 export default async function Page() {
   const salesPersons = await getAllSalesPersons();
+  const realEstates = await getAllRealEstates();
 
   return (
     <main>
       <div className="flex flex-col p-6 sm:flex-row sm:p-24 items-center gap-4 place-content-evenly	">
-        <h1 className="">
-          Select the salesperson who will benefit from this real estate and
-          specify the rate.
-        </h1>
         <form action={createCommission}>
-          <div className="min-w-16 flex flex-row gap-4">
+          <h1 className="">Select the realestate for calculation.</h1>
+          <div>
+            <DropdownRealestate realEstate={realEstates} />
+          </div>
+
+          <h1 className="">
+            Select the salesperson who will benefit from this real estate and
+            specify the rate.
+          </h1>
+          <div className="p-4 min-w-16 flex flex-row gap-4 place-content-evenly">
             <div>
               <DropdownSalesPersons salesPersons={salesPersons} />
             </div>
@@ -29,6 +42,7 @@ export default async function Page() {
               />
             </div>
           </div>
+          <SubmitButton />
         </form>
       </div>
     </main>
