@@ -29,7 +29,6 @@ export default function DropdownRealestate(props: DropdownRealestateProps) {
         <Autocomplete
           isRequired
           value={key}
-          name="realEstateId"
           label="Select a real estate"
           className="max-w-xs"
           onSelectionChange={handleBlur}
@@ -44,7 +43,7 @@ export default function DropdownRealestate(props: DropdownRealestateProps) {
       <div className="min-w-36 max-w-10">
         <Input
           value={price}
-          // isDisabled
+          isReadOnly
           name="price"
           type="string"
           min={0}
@@ -52,6 +51,7 @@ export default function DropdownRealestate(props: DropdownRealestateProps) {
           isRequired
         />
       </div>
+      <input name="realEstateId" value={key} hidden={true} />
     </div>
   );
 }
