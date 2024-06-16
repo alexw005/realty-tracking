@@ -42,4 +42,6 @@ model commission {
   realEstate    realEstate @relation(fields: [realEstateId], references: [id])
 
   @@index([salesPersonId, realEstateId])
+  
+  @@unique([salesPersonId, realEstateId])
 }
