@@ -1,5 +1,5 @@
 import prisma from "@/lib/db";
-import DropdownSalesPersons from "../components/dropdownSalesPersons";
+import DropdownSalesPersons from "../components/DropdownSalesPersons";
 import { createCommission, getAllSalesPersons } from "../server/actions";
 import { Input } from "@nextui-org/react";
 
