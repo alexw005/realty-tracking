@@ -8,24 +8,26 @@ export default async function Page() {
 
   return (
     <main>
-      <div className="flex flex-row  p-24 items-center justify-between gap-4">
+      <div className="flex flex-col p-6 sm:flex-row sm:p-24 items-center gap-4 place-content-evenly	">
         <h1 className="">
           Select the salesperson who will benefit from this real estate and
           specify the rate.
         </h1>
         <form action={createCommission}>
-          <div>
-            <DropdownSalesPersons salesPersons={salesPersons} />
-          </div>
-          <div>
-            <Input
-              name="rate"
-              type="number"
-              min={0}
-              max={100}
-              label="Rate"
-              isRequired
-            />
+          <div className="min-w-16 flex flex-row gap-4">
+            <div>
+              <DropdownSalesPersons salesPersons={salesPersons} />
+            </div>
+            <div className="min-w-36">
+              <Input
+                name="percentage"
+                type="number"
+                min={0}
+                max={100}
+                label="Percentage (%)"
+                isRequired
+              />
+            </div>
           </div>
         </form>
       </div>

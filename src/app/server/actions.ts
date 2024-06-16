@@ -88,7 +88,7 @@ export async function addRealEstate(formData: FormData) {
 
 export async function createCommission(formData: FormData) {
   const salesPersonId = formData.get("salespersonid") as string;
-  const rate = formData.get("rate") as string;
+  const rate = parseFloat(formData.get("percentage") as string) / 100;
   const commissionId = await prisma.commission.findFirst({
     include: {
       salesPerson: true,
@@ -104,7 +104,7 @@ export async function createCommission(formData: FormData) {
     return;
   } else {
     try {
-      const amount = commissionId.realEstate.price * parseFloat(rate);
+      const amount = commissionId.realEstate.price * rate;
 
       console.log(commissionId.id, amount);
       await prisma.commission.upsert({
@@ -116,13 +116,13 @@ export async function createCommission(formData: FormData) {
         },
         create: {
           amount: amount,
-          rate: parseFloat(rate),
+          rate: rate,
           realEstateId: 1,
           salesPersonId: parseInt(salesPersonId),
         },
         update: {
           amount: amount,
-          rate: parseFloat(rate),
+          rate: rate,
         },
       });
     } catch (e) {
