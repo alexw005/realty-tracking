@@ -73,6 +73,7 @@ export async function addRealEstate(formData: FormData) {
   const name = formData.get("name") as string;
   const address = formData.get("address") as string;
   const price = parseFloat(formData.get("price") as string);
+
   try {
     await prisma.realEstate.create({
       data: {

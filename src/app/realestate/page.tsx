@@ -6,7 +6,7 @@ import SubmitButton from "../components/SubmitButton";
 export default function Page() {
   return (
     <main>
-      <div className="flex flex-col  p-24 items-center justify-between gap-4">
+      <div className="flex flex-col p-6 sm:p-24 items-center gap-4 place-content-evenly	">
         <h1 className="">Add Realestate</h1>
         <div>
           <form action={addRealEstate}>
