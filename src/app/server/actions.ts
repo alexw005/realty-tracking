@@ -1,11 +1,18 @@
 "use server";
 
+import prisma from "@/lib/db";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 
 export async function addSalesPersons(formData: FormData) {
   const name = formData.get("name") as string;
-  console.log(name, formData);
+  const email = formData.get("email") as string;
+  await prisma.salesPerson.create({
+    data: {
+      name,
+      email,
+    },
+  });
 }
 export async function login(formData: FormData) {
   const userName = formData.get("username") as string;
