@@ -10,7 +10,10 @@ export async function addSalesPersons(formData: FormData) {
 export async function login(formData: FormData) {
   const userName = formData.get("username") as string;
   const password = formData.get("password") as string;
-  if (userName === "admin" && password === process.env.ADMINPASSWORD) {
+  if (
+    userName === process.env.ADMINUSERNAME &&
+    password === process.env.ADMINPASSWORD
+  ) {
     const secret = new TextEncoder().encode(process.env.SECRET);
     const alg = "HS256";
 
