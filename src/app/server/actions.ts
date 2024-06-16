@@ -3,6 +3,7 @@
 import prisma from "@/lib/db";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function getAllSalesPersons() {
   try {
@@ -58,8 +59,9 @@ export async function getCommissionById(id: number) {
 export async function addSalesPersons(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
+  let salesPerson;
   try {
-    await prisma.salesPerson.create({
+    salesPerson = await prisma.salesPerson.create({
       data: {
         name,
         email,
@@ -68,14 +70,17 @@ export async function addSalesPersons(formData: FormData) {
   } catch (e) {
     console.error(e);
   }
+  if (salesPerson) {
+    redirect("/dashboard");
+  }
 }
 export async function addRealEstate(formData: FormData) {
   const name = formData.get("name") as string;
   const address = formData.get("address") as string;
   const price = parseFloat(formData.get("price") as string);
-
+  let realEstate;
   try {
-    await prisma.realEstate.create({
+    realEstate = await prisma.realEstate.create({
       data: {
         name,
         address,
@@ -84,6 +89,9 @@ export async function addRealEstate(formData: FormData) {
     });
   } catch (e) {
     console.error(e);
+  }
+  if (realEstate) {
+    redirect("/dashboard");
   }
 }
 
