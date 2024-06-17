@@ -10,7 +10,6 @@ import {
   User,
   Chip,
   Tooltip,
-  getKeyValue,
 } from "@nextui-org/react";
 import { commission, salesPerson } from "@prisma/client";
 

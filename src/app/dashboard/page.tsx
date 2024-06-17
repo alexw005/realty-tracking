@@ -6,10 +6,11 @@ import {
   getAllSalesPersons,
   getCommissionByRealEstateId,
 } from "../server/actions";
-import { Input } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import DropdownRealestate from "../components/DropdownRealestate";
 import SubmitButton from "../components/SubmitButton";
 import CommissionTable from "../components/CommisionTable";
+import Link from "next/link";
 
 export default async function Page({
   searchParams,
@@ -55,14 +56,23 @@ export default async function Page({
           <SubmitButton />
           <p className="p-6">
             Please select a new salesperson and click <b>Add</b> to include
-            their additional commission in the report. You
+            their additional commission in the report.
           </p>
         </form>
       </div>
+
       <div className=" p-6 sm:flex-row sm:p-24 items-center">
         <h1 className="p-6">Commissions</h1>
 
         <CommissionTable commissions={commisionByRealestate} />
+      </div>
+      <div className="flex flex-col p-6 sm:flex-row sm:p-r-24 items-center gap-4 place-content-evenly	">
+        <Button className="min-w-80">
+          <Link href="/salespersons">Create a new Salespersoncrecord</Link>
+        </Button>
+        <Button className="min-w-80">
+          <Link href="/realestate">Create a new Real Estate record</Link>
+        </Button>
       </div>
     </main>
   );
