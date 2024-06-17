@@ -112,12 +112,10 @@ export async function addRealEstate(formData: FormData) {
 }
 
 export async function createCommission(formData: FormData) {
-  console.log(formData);
   const realEstateId = formData.get("realEstateId") as string;
   const price = parseFloat(formData.get("price") as string);
   const salesPersonId = formData.get("salesPersonId") as string;
   const rate = parseFloat(formData.get("percentage") as string) / 100;
-  // console.log(price, salesPersonId, realEstateId, rate);
   const commission = await prisma.commission.findFirst({
     include: {
       salesPerson: true,
@@ -132,14 +130,6 @@ export async function createCommission(formData: FormData) {
     console.error("Commission not found");
   }
   try {
-    console.log(
-      commission?.id,
-
-      price,
-      salesPersonId,
-      realEstateId,
-      rate
-    );
     const amount = price * rate; //commission.realEstate.price * rate;
     await prisma.commission.upsert({
       where: {
