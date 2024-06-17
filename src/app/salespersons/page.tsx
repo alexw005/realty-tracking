@@ -11,6 +11,7 @@ export default function Page() {
         <div>
           <form action={addSalesPersons}>
             <Input
+              variant="bordered"
               className="p-1"
               type="name"
               label="Name"
@@ -18,6 +19,7 @@ export default function Page() {
               required
             />
             <Input
+              variant="bordered"
               className="p-1"
               type="email"
               label="Email"

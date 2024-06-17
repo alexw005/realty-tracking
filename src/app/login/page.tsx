@@ -10,6 +10,7 @@ export default function Page() {
         <div>
           <form action={login}>
             <Input
+              variant="bordered"
               className="p-1"
               type="name"
               label="Username"
@@ -17,6 +18,7 @@ export default function Page() {
               required
             />
             <Input
+              variant="bordered"
               className="p-1"
               type="password"
               label="Password"
