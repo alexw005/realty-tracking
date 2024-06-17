@@ -53,9 +53,15 @@ export default async function Page({
             </div>
           </div>
           <SubmitButton />
+          <p className="p-6">
+            Please select a new salesperson and click <b>Add</b> to include
+            their additional commission in the report. You
+          </p>
         </form>
       </div>
       <div className=" p-6 sm:flex-row sm:p-24 items-center">
+        <h1 className="p-6">Commissions</h1>
+
         <CommissionTable commissions={commisionByRealestate} />
       </div>
     </main>
