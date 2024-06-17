@@ -1,7 +1,8 @@
 "use client";
 import { Autocomplete, AutocompleteItem, Input } from "@nextui-org/react";
 import { realEstate } from "@prisma/client";
-import { parse } from "path";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 import { useEffect, useState } from "react";
 
 interface DropdownRealestateProps {
@@ -10,6 +11,10 @@ interface DropdownRealestateProps {
 
 export default function DropdownRealestate(props: DropdownRealestateProps) {
   const { realEstate } = props;
+  const searchParams = useSearchParams();
+  const realestateId = searchParams.get("realestateId");
+  const router = useRouter();
+  const pathname = usePathname();
   const [key, setKey] = useState<number>();
   const [price, setPrice] = useState<string>();
   useEffect(() => {
@@ -21,6 +26,12 @@ export default function DropdownRealestate(props: DropdownRealestateProps) {
   }, [key, realEstate]);
   const handleBlur = (e: React.Key) => {
     setKey(parseInt(e as string));
+    const params = new URLSearchParams(searchParams);
+
+    if (e && e.toString() !== realestateId) {
+      params.set("realestateId", e as string);
+      router.push(pathname + "?" + params.toString());
+    }
   };
 
   return (
