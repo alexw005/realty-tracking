@@ -48,6 +48,8 @@ export default async function Page() {
           </div>
           <SubmitButton />
         </form>
+      </div>
+      <div className=" p-6 sm:flex-row sm:p-24 items-center">
         <CommissionTable commissions={commission} />
       </div>
     </main>
