@@ -68,7 +68,7 @@ export default async function Page({
       </div>
       <div className="flex flex-col p-6 sm:flex-row sm:p-r-24 items-center gap-4 place-content-evenly	">
         <Button className="min-w-80">
-          <Link href="/salespersons">Create a new Salespersoncrecord</Link>
+          <Link href="/salespersons">Create a new Salesperson record</Link>
         </Button>
         <Button className="min-w-80">
           <Link href="/realestate">Create a new Real Estate record</Link>
