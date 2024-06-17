@@ -11,7 +11,7 @@ import {
   Chip,
   Tooltip,
 } from "@nextui-org/react";
-import { commission, salesPerson } from "@prisma/client";
+import { Prisma, commission } from "@prisma/client";
 
 const statusColorMap = {
   active: "success",
@@ -25,23 +25,33 @@ const columns = [
   { name: "ACTIONS", uid: "actions" },
 ];
 
-interface Commision {
-  commissions: commission[];
+type CommissionWithDetailsInfo = {
+  commissions: Prisma.commissionGetPayload<{
+    include: {
+      salesPerson: true,
+      realEstate: true
+    }
+  }>[]
 }
 
-export default function ComissionTable(props: Commision) {
-  const { commissions } = props;
 
-  const renderCell = (commInfo: commission, columnKey: any) => {
+export default function ComissionTable(props: CommissionWithDetailsInfo) {
+  const { commissions } = props;
+  const renderCell = (commInfo: Prisma.commissionGetPayload<{
+    include: {
+      salesPerson: true,
+      realEstate: true
+    }
+  }>, columnKey: any) => {
     const cellValue = commInfo[columnKey as keyof commission]?.toString();
+    const { salesPerson } = commInfo;
 
     switch (columnKey) {
       case "name":
         return (
           <User
             avatarProps={{ radius: "lg", src: `./favicon.ico` }}
-            description={commInfo.salesPersonId}
-            name={`${cellValue}`}
+            name={`${salesPerson.name}`}
           >
             {commInfo.salesPersonId}
           </User>
