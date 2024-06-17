@@ -63,7 +63,7 @@ export default async function Page({
 
       <div className=" p-6 sm:flex-row sm:p-24 items-center">
         <h1 className="p-6">Commissions</h1>
-
+        <Button></Button>
         <CommissionTable commissions={commisionByRealestate} />
       </div>
       <div className="flex flex-col p-6 sm:flex-row sm:p-r-24 items-center gap-4 place-content-evenly	">

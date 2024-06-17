@@ -46,6 +46,10 @@ export async function getCommissionByRealEstateId(realestateId: number) {
       where: {
         realEstateId: realestateId,
       },
+      include: {
+        salesPerson: true,
+        realEstate: true,
+      },
     });
     if (!commissions) {
       return [];
