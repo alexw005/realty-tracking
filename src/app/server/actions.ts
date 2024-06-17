@@ -40,6 +40,22 @@ export async function getAllCommissions() {
   }
 }
 
+export async function getCommissionByRealEstateId(realestateId: number) {
+  try {
+    const commissions = await prisma.commission.findMany({
+      where: {
+        realEstateId: realestateId,
+      },
+    });
+    if (!commissions) {
+      return [];
+    }
+    return commissions;
+  } catch (e) {
+    return [];
+  }
+}
+
 export async function getCommissionById(id: number) {
   try {
     const commission = await prisma.commission.findUnique({
@@ -146,6 +162,9 @@ export async function createCommission(formData: FormData) {
     });
   } catch (e) {
     console.error(e);
+  }
+  if (realEstateId) {
+    redirect(`/dashboard?realestateId=${realEstateId}`);
   }
 }
 export async function login(formData: FormData) {

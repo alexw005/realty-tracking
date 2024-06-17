@@ -2,20 +2,26 @@ import prisma from "@/lib/db";
 import DropdownSalesPersons from "../components/DropdownSalesPersons";
 import {
   createCommission,
-  getAllCommissions,
   getAllRealEstates,
   getAllSalesPersons,
+  getCommissionByRealEstateId,
 } from "../server/actions";
 import { Input } from "@nextui-org/react";
 import DropdownRealestate from "../components/DropdownRealestate";
-import { ReactEventHandler } from "react";
 import SubmitButton from "../components/SubmitButton";
 import CommissionTable from "../components/CommisionTable";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { realestateId: string };
+}) {
+  const realestateId = searchParams.realestateId;
   const salesPersons = await getAllSalesPersons();
   const realEstates = await getAllRealEstates();
-  const commission = await getAllCommissions();
+  const commisionByRealestate = await getCommissionByRealEstateId(
+    parseInt(realestateId)
+  );
 
   return (
     <main>
@@ -50,7 +56,7 @@ export default async function Page() {
         </form>
       </div>
       <div className=" p-6 sm:flex-row sm:p-24 items-center">
-        <CommissionTable commissions={commission} />
+        <CommissionTable commissions={commisionByRealestate} />
       </div>
     </main>
   );
