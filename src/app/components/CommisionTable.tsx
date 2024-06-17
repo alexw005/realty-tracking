@@ -92,7 +92,7 @@ export default function ComissionTable(props: CommissionWithDetailsInfo) {
         <Button className="mx-6 " color="primary" onClick={() => toPDF()}>Download as PDF</Button>
         <Divider className="my-4" />
         <div className="px-6" ref={targetRef}>
-          <h1 className="px-6 py-1">Commission for property: {commissions[0].realEstate.address}</h1>
+          <h1 className="px-6 py-1">Commission for property: {commissions[0] ? commissions[0].realEstate.address : ""}</h1>
           <Table aria-label="Example table with custom cells">
             <TableHeader columns={columns}>
               {(column) => (
