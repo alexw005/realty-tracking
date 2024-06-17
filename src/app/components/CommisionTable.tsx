@@ -10,19 +10,21 @@ import {
   User,
   Chip,
   Tooltip,
+  Button,
+  Divider,
 } from "@nextui-org/react";
 import { Prisma, commission } from "@prisma/client";
-
+import { usePDF } from "react-to-pdf";
 const statusColorMap = {
   active: "success",
   paused: "danger",
   vacation: "warning",
 };
 const columns = [
-  { name: "NAME", uid: "name" },
+  { name: "Salesperson's Name", uid: "name" },
   { name: "Percentage", uid: "rate" },
   { name: "Amount", uid: "amount" },
-  { name: "ACTIONS", uid: "actions" },
+  // { name: "ACTIONS", uid: "actions" },
 ];
 
 type CommissionWithDetailsInfo = {
@@ -37,6 +39,7 @@ type CommissionWithDetailsInfo = {
 
 export default function ComissionTable(props: CommissionWithDetailsInfo) {
   const { commissions } = props;
+  const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' });
   const renderCell = (commInfo: Prisma.commissionGetPayload<{
     include: {
       salesPerson: true,
@@ -84,26 +87,35 @@ export default function ComissionTable(props: CommissionWithDetailsInfo) {
   };
 
   return (
-    <Table aria-label="Example table with custom cells">
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            {column.name}
-          </TableColumn>
-        )}
-      </TableHeader>
-      <TableBody items={commissions}>
-        {(item) => (
-          <TableRow key={item.id}>
-            {(columnKey) => (
-              <TableCell>{renderCell(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <>
+      <div className=" p-6 sm:flex-row sm:p-24 items-center">
+        <Button className="mx-6 " color="primary" onClick={() => toPDF()}>Download as PDF</Button>
+        <Divider className="my-4" />
+        <div className="px-6" ref={targetRef}>
+          <h1 className="px-6 py-1">Commission for property: {commissions[0].realEstate.address}</h1>
+          <Table aria-label="Example table with custom cells">
+            <TableHeader columns={columns}>
+              {(column) => (
+                <TableColumn
+                  key={column.uid}
+                  align={column.uid === "actions" ? "center" : "start"}
+                >
+                  {column.name}
+                </TableColumn>
+              )}
+            </TableHeader>
+            <TableBody items={commissions}>
+              {(item) => (
+                <TableRow key={item.id}>
+                  {(columnKey) => (
+                    <TableCell>{renderCell(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </>
   );
 }

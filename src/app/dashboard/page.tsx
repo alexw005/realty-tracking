@@ -11,6 +11,7 @@ import DropdownRealestate from "../components/DropdownRealestate";
 import SubmitButton from "../components/SubmitButton";
 import CommissionTable from "../components/CommisionTable";
 import Link from "next/link";
+import ExportCommisionButton from "../components/ExportCommissionButton";
 
 export default async function Page({
   searchParams,
@@ -26,7 +27,7 @@ export default async function Page({
 
   return (
     <main>
-      <div className="flex flex-col p-6 sm:flex-row sm:p-24 items-center gap-4 place-content-evenly	">
+      <div className="flex flex-col pb-0 p-6 sm:flex-row sm:p-24 sm:pb-0 items-center gap-4 place-content-evenly 	">
         <form action={createCommission}>
           <h1 className="">Select the realestate for calculation.</h1>
           <div>
@@ -61,11 +62,9 @@ export default async function Page({
         </form>
       </div>
 
-      <div className=" p-6 sm:flex-row sm:p-24 items-center">
-        <h1 className="p-6">Commissions</h1>
-        <Button></Button>
-        <CommissionTable commissions={commisionByRealestate} />
-      </div>
+
+      <CommissionTable commissions={commisionByRealestate} />
+
       <div className="flex flex-col p-6 sm:flex-row sm:p-r-24 items-center gap-4 place-content-evenly	">
         <Button className="min-w-80">
           <Link href="/salespersons">Create a new Salesperson record</Link>
