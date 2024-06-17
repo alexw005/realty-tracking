@@ -30,8 +30,9 @@ interface Commision {
   commissions: commission[];
 }
 
-export default function ComissionTable(commision: Commision) {
-  const { commissions } = commision;
+export default function ComissionTable(props: Commision) {
+  const { commissions } = props;
+
   const renderCell = (commInfo: commission, columnKey: any) => {
     const cellValue = commInfo[columnKey as keyof commission]?.toString();
 
