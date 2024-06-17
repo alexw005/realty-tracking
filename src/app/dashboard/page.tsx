@@ -41,7 +41,7 @@ export default async function Page({
             <div>
               <DropdownSalesPersons salesPersons={salesPersons} />
             </div>
-            <div className="min-w-36">
+            <div className="w-40">
               <Input
                 variant="bordered"
                 name="percentage"
