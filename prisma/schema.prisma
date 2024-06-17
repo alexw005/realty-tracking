@@ -6,42 +6,41 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-
 model salesPerson {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   commissions commission[]
 }
 
 model realEstate {
-  id        Int      @id @default(autoincrement())
-  name      String
-  address   String
-  price     Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int          @id @default(autoincrement())
+  name        String
+  address     String
+  price       Float
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   commissions commission[]
 }
 
 model commission {
-  id            Int      @id @default(autoincrement())
+  id            Int         @id @default(autoincrement())
   rate          Float
   amount        Float
   salesPersonId Int
   realEstateId  Int
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
   salesPerson   salesPerson @relation(fields: [salesPersonId], references: [id])
-  realEstate    realEstate @relation(fields: [realEstateId], references: [id])
+  realEstate    realEstate  @relation(fields: [realEstateId], references: [id])
 
-  @@index([salesPersonId, realEstateId])
-  
   @@unique([salesPersonId, realEstateId])
+  @@index([salesPersonId, realEstateId])
 }
