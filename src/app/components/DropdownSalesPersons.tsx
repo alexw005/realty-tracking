@@ -17,6 +17,7 @@ export default function DropdownSalesPersons(props: DropdownSalesPersonsProps) {
   return (
     <>
       <Autocomplete
+        variant="bordered"
         isRequired
         onSelectionChange={handleSelection}
         value={key}

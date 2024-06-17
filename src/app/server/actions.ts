@@ -28,7 +28,7 @@ export async function getAllRealEstates() {
   }
 }
 
-export async function getCommission() {
+export async function getAllCommissions() {
   try {
     const commissions = await prisma.commission.findMany();
     if (!commissions) {

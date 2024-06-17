@@ -31,6 +31,7 @@ export default function DropdownRealestate(props: DropdownRealestateProps) {
           value={key}
           label="Select a real estate"
           className="max-w-xs"
+          variant="bordered"
           onSelectionChange={handleBlur}
         >
           {realEstate.map((item) => (
