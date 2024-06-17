@@ -25,7 +25,7 @@ export default function Page() {
               name="password"
               required
             />
-            <SubmitButton />
+            <SubmitButton>Login</SubmitButton>
           </form>
         </div>
       </div>

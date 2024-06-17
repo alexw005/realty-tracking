@@ -26,7 +26,7 @@ export default function Page() {
               name="email"
               required
             />
-            <SubmitButton />
+            <SubmitButton>Add</SubmitButton>
           </form>
         </div>
       </div>

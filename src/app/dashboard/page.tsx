@@ -53,7 +53,7 @@ export default async function Page({
               />
             </div>
           </div>
-          <SubmitButton />
+          <SubmitButton>Add</SubmitButton>
           <p className="p-6">
             Please select a new salesperson and click <b>Add</b> to include
             their additional commission in the report.
