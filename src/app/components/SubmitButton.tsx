@@ -8,8 +8,10 @@ export default function SubmitButton({ children }: { children: string }) {
   const { pending } = useFormStatus()
 
   return (
-    <Button className='p1' color='primary' type="submit" isDisabled={pending} fullWidth>
-      {children}
-    </Button>
+    <div className='flex justify-center p-4'>
+      <Button className='max-w-40' color='primary' type="submit" isDisabled={pending} fullWidth>
+        {children}
+      </Button>
+    </div>
   )
 }
