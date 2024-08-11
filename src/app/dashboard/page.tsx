@@ -41,7 +41,7 @@ export default async function Page({
             <div>
               <DropdownSalesPersons salesPersons={salesPersons} />
             </div>
-            <div className="min-w-36">
+            <div className="w-40">
               <Input
                 variant="bordered"
                 name="percentage"
@@ -53,8 +53,8 @@ export default async function Page({
               />
             </div>
           </div>
-          <SubmitButton />
-          <p className="p-6">
+          <SubmitButton>Add</SubmitButton>
+          <p className="p-4">
             Please select a new salesperson and click <b>Add</b> to include
             their additional commission in the report.
           </p>

@@ -52,7 +52,7 @@ export default function DropdownRealestate(props: DropdownRealestateProps) {
           ))}
         </Autocomplete>
       </div>
-      <div className="min-w-36">
+      <div className="w-40">
         <Input
           value={price}
           isReadOnly

@@ -35,7 +35,7 @@ export default function Page() {
               name="price"
               required
             />
-            <SubmitButton />
+            <SubmitButton>Add</SubmitButton>
           </form>
         </div>
       </div>
