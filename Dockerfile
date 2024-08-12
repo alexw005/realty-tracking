@@ -5,26 +5,26 @@ COPY ./package.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-CMD npm run dev
+CMD npm run build
 
 # from Nextjs doc
-# FROM base as production
-# WORKDIR /app
+FROM builder as production
+WORKDIR /app
 
-# ENV NODE_ENV=production
-# RUN npm ci
+ENV NODE_ENV=production
+RUN npm ci
 
-# RUN addgroup -g 1001 -S nodejs
-# RUN adduser -S nextjs -u 1001
-# USER nextjs
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
+USER nextjsc
 
 
-# COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-# COPY --from=builder /app/node_modules ./node_modules
-# COPY --from=builder /app/package.json ./package.json
-# COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/public ./public
 
-# CMD npm start
+CMD npm start
 
 # from stephen
 # FROM nginx
