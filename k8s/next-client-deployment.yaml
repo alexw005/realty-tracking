@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: realty
+  name: next-client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: next-client
+          image: fswoon2/alexwfs:realty-tracking
+          ports:
+            - containerPort: 3000
+          env:
+            - name: ADMIN_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: realty-secret
+                  key: ADMIN_PASSWORD
+            - name: ADMIN_USERNAME
+              valueFrom: 
+                secretKeyRef:
+                  name: realty-secret
+                  key: ADMIN_USERNAME
+            - name: POSTGRES_PRISMA_URL
+              valueFrom: 
+                secretKeyRef:
+                  name: realty-secret
+                  key: POSTGRES_PRISMA_URL
+            - name: SECRET
+              valueFrom: 
+                secretKeyRef:
+                  name: realty-secret
+                  key: SECRET
