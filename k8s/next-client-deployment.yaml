@@ -39,3 +39,6 @@ spec:
                 secretKeyRef:
                   name: realty-secret
                   key: SECRET
+      imagePullSecrets:
+        - name: regcred
+     
