@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { checkIfTokenIsValid } from "@/utils";
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -178,11 +179,10 @@ export async function login(formData: FormData) {
       .sign(secret);
 
     const cookieStore = cookies();
-    if (typeof token === "string") {
-      cookieStore.set("token", token, { sameSite: "strict" });
+    cookieStore.set("token", token, { sameSite: "strict" });
+    if (await checkIfTokenIsValid(cookieStore.get('token'))) {
       redirect("/dashboard");
     }
   }
   console.error("Failed to set cookies");
-  return undefined;
 }
