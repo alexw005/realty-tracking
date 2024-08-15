@@ -11,9 +11,8 @@ metadata:
     # ADD ANNOTATION
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     # ADD ANNOTATION
-    nginx.ingress.kubernetes.io/affinity: cookie
-    nginx.ingress.kubernetes.io/session-cookie-samesite: 'true'
-    nginx.ingress.kubernetes.io/session-cookie-domain: 'realty.fswoon.au'
+    # nginx.ingress.kubernetes.io/affinity: cookie
+    # nginx.ingress.kubernetes.io/session-cookie-samesite: 'true'
 spec:
   ingressClassName: nginx
   # ADD INGRESSCLASSNAME FIELD
