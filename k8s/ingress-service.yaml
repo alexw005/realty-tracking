@@ -6,12 +6,14 @@ metadata:
   name: ingress-service
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-staging
-    cert-manager.io/issuer-kind: ClusterIssuer
     # REMOVE CLASSNAME ANNOTATION
     nginx.ingress.kubernetes.io/use-regex: 'true'
     # ADD ANNOTATION
     nginx.ingress.kubernetes.io/rewrite-target: /$1
     # ADD ANNOTATION
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/session-cookie-samesite: 'true'
+    nginx.ingress.kubernetes.io/session-cookie-domain: 'realty.fswoon.au'
 spec:
   ingressClassName: nginx
   # ADD INGRESSCLASSNAME FIELD
