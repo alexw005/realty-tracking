@@ -179,7 +179,7 @@ export async function login(formData: FormData) {
       .sign(secret);
 
     const cookieStore = cookies();
-    cookieStore.set("token", token, { sameSite: "lax" });
+    cookieStore.set("token", token, { domain: process.env.BASE_URL, secure: true, sameSite: "none" });
     if (await checkIfTokenIsValid(cookieStore.get('token'))) {
       redirect("/dashboard");
     }
