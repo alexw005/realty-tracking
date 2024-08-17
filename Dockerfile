@@ -5,7 +5,7 @@ COPY ./package.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
-CMD npm run build
+RUN npm run build
 
 # from Nextjs doc
 FROM builder as production
